@@ -28,18 +28,18 @@ class _UserListState extends State<UserList> {
       defaultChild: Center(child: new CircularProgressIndicator(backgroundColor: Colors.deepPurpleAccent,)),
       query: database,
       sort: (a,b) => (b.key.compareTo(a.key)), // last added item will be show first
-      itemBuilder: (_, DataSnapshot lastMessageUserSnapshot, Animation<double> animation, int index) {
+      itemBuilder: (_, DataSnapshot userSnapshot, Animation<double> animation, int index) {
 
         //get last message data
         return new FutureBuilder<DataSnapshot>(
-          future: database.child(lastMessageUserSnapshot.key).once(),
-          builder: (BuildContext context, lastMessageDataSnapshot){
+          future: database.child(userSnapshot.key).once(),
+          builder: (BuildContext context, userDataSnapshot){
 
-            if(lastMessageDataSnapshot.hasData){
+            if(userDataSnapshot.hasData){
 
               //get last message user data. like I sent message to you. so I need your information
               return FutureBuilder<DataSnapshot>(
-                future: database.child(lastMessageUserSnapshot.key).once(),
+                future: database.child(userSnapshot.key).once(),
                 builder: (BuildContext context, userSnapshot){
 
                   if(userSnapshot.hasData){
